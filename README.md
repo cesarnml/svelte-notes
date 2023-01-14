@@ -6,6 +6,7 @@
     - [Part 1: Welcome to Svelte](#part-1-welcome-to-svelte)
       - [Introduction](#introduction)
       - [Reactivity](#reactivity)
+      - [Props](#props)
 
 ## Sections
 
@@ -13,7 +14,7 @@
 
 * [x] ~~_Introduction_~~ [2023-01-14]
 * [x] ~~_Reactivity_~~ [2023-01-14]
-* [ ] Props
+* [x] ~~_Props_~~ [2023-01-14]
 * [ ] Logic
 * [ ] Events
 * [ ] Bindings
@@ -125,3 +126,18 @@
 ```
 
 - Note: `Reactivity` is triggered via `assignments` (i.e. mutating methods won't trigger DOM updates)
+
+#### Props
+
+- `Props` are declared in components by via the `export` keyword in the `<script>`. An optional defaultValue can also be passed to exported props
+
+```jsx
+<script>
+export let answer = [defaultValue];
+<script>
+```
+
+- `Prop spreading` is possible via <Component {...object} /> syntax
+- Within the template portion of a Svelte component,`$$props` can be referenced to access all props that were passed to a component
+  - _Avoid do to poor optimization_
+-
