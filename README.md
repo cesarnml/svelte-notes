@@ -12,7 +12,7 @@
 - Part 1: Welcome to Svelte
 
 * [x] ~~_Introduction_~~ [2023-01-14]
-* [ ] Reactivity
+* [x] ~~_Reactivity_~~ [2023-01-14]
 * [ ] Props
 * [ ] Logic
 * [ ] Events
@@ -85,3 +85,43 @@
 - To enable parsing HTML strings use `<p>{@html string}</p>`
 
 #### Reactivity
+
+- `Reactivity` is how Svelte keeps the DOM in sync with application state
+
+```jsx
+<script>
+	let count = 0;
+
+	function increment() {
+    count += 1
+	}
+</script>
+
+<button on:click={increment}>
+	Clicked {count}
+	{count === 1 ? 'time' : 'times'}
+</button>
+```
+
+- `reactive declarations` , `$: [expression or value]` are Svelte's version of computed properties. Multiple statements can be encased in a block-scope
+
+```jsx
+<script>
+	let count = 0;
+
+  $: doubled = count * 2;
+
+	function handleClick() {
+		count += 1;
+	}
+</script>
+
+<button on:click={handleClick}>
+	Clicked {count}
+	{count === 1 ? 'time' : 'times'}
+</button>
+
+<p>{count} doubled is {doubled}</p>
+```
+
+- Note: `Reactivity` is triggered via `assignments` (i.e. mutating methods won't trigger DOM updates)
