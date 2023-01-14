@@ -8,6 +8,7 @@
       - [Reactivity](#reactivity)
       - [Props](#props)
       - [Logic](#logic)
+      - [Events](#events)
 
 ## Sections
 
@@ -17,7 +18,7 @@
 * [x] ~~_Reactivity_~~ [2023-01-14]
 * [x] ~~_Props_~~ [2023-01-14]
 * [x] ~~_Logic_~~ [2023-01-14]
-* [ ] Events
+* [x] ~~_Events_~~ [2023-01-14]
 * [ ] Bindings
 * [ ] Lifecycle
 * [ ] Stores
@@ -195,3 +196,32 @@ export let answer = [defaultValue];
 // do something with response
 {/await}
 ```
+
+#### Events
+
+- `Event handlers` can be declared on elements by the `on:` directive, (e.g. `<div on:click={handleClick} />`)
+- `Inline handlers` are cool and performant (e.g. `<input on:click={e => {name = event.target.value}} />`)
+  - wrapping inline event handlers in quotation marks might improve syntax highlighting
+- `Event modifiers`
+  - `preventDefault`
+  - `stopPropagation`
+  - `passive`
+  - `nonpassive`
+  - `capture`
+  - `once`
+  - `self`
+  - `trusted`
+- Modifiers are chainable. `on:click|preventDefault|stopPropagation`
+- `Component events`:
+
+```jsx
+<script>
+  import {createEventDispatcher} from 'svelte' const dispatch = createEventDispatcher() const handleClick = () =>
+  dispatch('eventName', event.detail )
+</script>
+```
+
+- `Component events` _don't bubble_. They must be explicitly forwarded by intermediate components
+  - The shorthand way to do this is by using `event directives` on intermediate components that have no defined value
+  - `<input on:message />` - will forward `message` events to parent component
+-
