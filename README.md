@@ -7,6 +7,7 @@
       - [Introduction](#introduction)
       - [Reactivity](#reactivity)
       - [Props](#props)
+      - [Logic](#logic)
 
 ## Sections
 
@@ -15,7 +16,7 @@
 * [x] ~~_Introduction_~~ [2023-01-14]
 * [x] ~~_Reactivity_~~ [2023-01-14]
 * [x] ~~_Props_~~ [2023-01-14]
-* [ ] Logic
+* [x] ~~_Logic_~~ [2023-01-14]
 * [ ] Events
 * [ ] Bindings
 * [ ] Lifecycle
@@ -140,4 +141,57 @@ export let answer = [defaultValue];
 - `Prop spreading` is possible via <Component {...object} /> syntax
 - Within the template portion of a Svelte component,`$$props` can be referenced to access all props that were passed to a component
   - _Avoid do to poor optimization_
--
+
+#### Logic
+
+- `If/else if/else` block syntax:
+
+```jsx
+{#if [expression]}
+// if conditional html
+{:if else [expression]}
+// else if conditional html
+{:else}
+// else conditional html
+{/if}
+```
+
+- `Each` blocks:
+
+```jsx
+<ul>
+{#each cats as cat, index}
+<li key={cat.id}>#{index + 1} - {cat.name}</li>
+{/each}
+</ul>
+```
+
+- Of course, it's possible for a list to change order then we must use a `Keyed each` block:
+
+```jsx
+<ul>
+{#each cats as cat, index (cat.id)}
+<li key={cat.id}>#{index + 1} - {cat.name}</li>
+{/each}
+</ul>
+```
+
+- `Await` blocks
+
+```jsx
+{#await promise}
+// render something while promise is resolved
+{:then response}
+// do something with response
+{:catch error}
+// do something with error
+{/await}
+```
+
+- No loading state? No error handling? Then a shorthand version of the above Await block syntax is possible:
+
+```jsx
+{#await promise then response}
+// do something with response
+{/await}
+```
