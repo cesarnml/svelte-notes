@@ -24,7 +24,7 @@
 * [x] ~~_Events_~~ [2023-01-14]
 * [x] ~~_Bindings_~~ [2023-01-15]
 * [x] ~~_Lifecycle_~~ [2023-01-15]
-* [ ] Stores
+* [x] ~~_Stores_~~ [2023-01-16]
 
 - Part 2: Introduction to SvelteKit
 
@@ -251,3 +251,84 @@ export let answer = [defaultValue];
 - `tick` batch updates after all pending state updates resolve
 
 #### Stores
+
+- Svelte has ships with its own application state `store` module
+
+```jsx
+import { writable } from 'svelte/store'
+
+export const count = writable(0)
+
+---
+
+count.subscribe(value => {
+  component_local_var = value
+})
+```
+
+- `writable` store has the following methods:
+  - `.subscribe` lets a component tap into store changes
+    - `subscribe` return an `unsubscribe` event that should be called within `onDestroy` lifecycle hook
+  - `.set` to set the state value
+  - `.update` to update the state value
+- `store` values can be references (an auto-subscribed) via `$store` (dollar sign referencing)
+- `readable` stores limit external writes
+
+```jsx
+import { readable } from 'svelte/store'
+
+export const time = readable(new Date(), function start(set) {
+  // implementation goes here
+  const interval = setInterval(() => {
+    set(new Date())
+  }, 1000)
+
+  return function stop() {
+    clearInterval(interval)
+  }
+})
+```
+
+- Stores can be `derived` from other stores:
+
+```jsx
+import { readable, derived } from 'svelte/store'
+
+export const time = readable(new Date(), function start(set) {
+  const interval = setInterval(() => {
+    set(new Date())
+  }, 1000)
+
+  return function stop() {
+    clearInterval(interval)
+  }
+})
+
+const start = new Date()
+
+export const elapsed = derived(time, ($time) => {
+  return ($time - start) / 1000
+})
+```
+
+- `Custom stores` (resembles React useContext pattern)
+
+```jsx
+import { writable } from 'svelte/store'
+
+function createCount() {
+  const { subscribe, set, update } = writable(0)
+
+  return {
+    subscribe,
+    increment: () => {},
+    decrement: () => {},
+    reset: () => {},
+  }
+}
+
+export const count = createCount()
+```
+
+- `$count` has the value
+- Two-way binding (`bind:`) is possible with `writable` stores
