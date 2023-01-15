@@ -10,6 +10,8 @@
       - [Logic](#logic)
       - [Events](#events)
       - [Bindings](#bindings)
+      - [Lifecycle](#lifecycle)
+      - [Stores](#stores)
 
 ## Sections
 
@@ -21,7 +23,7 @@
 * [x] ~~_Logic_~~ [2023-01-14]
 * [x] ~~_Events_~~ [2023-01-14]
 * [x] ~~_Bindings_~~ [2023-01-15]
-* [ ] Lifecycle
+* [x] ~~_Lifecycle_~~ [2023-01-15]
 * [ ] Stores
 
 - Part 2: Introduction to SvelteKit
@@ -237,3 +239,15 @@ export let answer = [defaultValue];
 - All `bind:` directives have a shorthand version (i.e. `bind:[attribute]={variable}` can be shortened to `bind:attribute` if attributeName === variableName)
 - Select elements use the `bind:value` directive
 - A multi-select can be achieved via the `multiple` attribute
+
+#### Lifecycle
+
+- `onMount`: use this to run code after the component renders
+  - Use this to fetch data on the client side
+  - Does not run on SSR
+  - If `onMount` returns a function it will run when the component is unMounted
+- `onDestroy`: use this to run code after the component is destroyed
+- `beforeUpdate` and `afterUpdate` allow for imperative component manipulation
+- `tick` batch updates after all pending state updates resolve
+
+#### Stores
