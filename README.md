@@ -9,6 +9,7 @@
       - [Props](#props)
       - [Logic](#logic)
       - [Events](#events)
+      - [Bindings](#bindings)
 
 ## Sections
 
@@ -19,7 +20,7 @@
 * [x] ~~_Props_~~ [2023-01-14]
 * [x] ~~_Logic_~~ [2023-01-14]
 * [x] ~~_Events_~~ [2023-01-14]
-* [ ] Bindings
+* [x] ~~_Bindings_~~ [2023-01-15]
 * [ ] Lifecycle
 * [ ] Stores
 
@@ -225,3 +226,14 @@ export let answer = [defaultValue];
   - The shorthand way to do this is by using `event directives` on intermediate components that have no defined value
   - `<input on:message />` - will forward `message` events to parent component
 -
+
+#### Bindings
+
+- Svelte supports `two-way binding` via the `bind:[attribute]={variable}` directive. (e.g. `<input bind:value={name} />`)
+- _In the DOM , everything is a string_
+- For input `type="checkbox"`, the bind attribute is `checked` (e.g. `<input type="checkbox bind:checked={checked} />`)
+- Radio/Checkbox groups make use of the `bind:group={optionsVariable}` directive
+  ![](images/Screenshot%202023-01-15%20at%2010.09.12.png)
+- All `bind:` directives have a shorthand version (i.e. `bind:[attribute]={variable}` can be shortened to `bind:attribute` if attributeName === variableName)
+- Select elements use the `bind:value` directive
+- A multi-select can be achieved via the `multiple` attribute
