@@ -15,6 +15,7 @@
     - [Part 2: Introduction to SvelteKit](#part-2-introduction-to-sveltekit)
       - [Concepts](#concepts)
       - [Routing](#routing)
+    - [Loading data](#loading-data)
 
 ## Sections
 
@@ -32,7 +33,7 @@
 - Part 2: Introduction to SvelteKit
 
 * [x] ~~_Concepts_~~ [2023-01-16]
-* [ ] Routing
+* [x] ~~_Routing_~~ [2023-01-16]
 * [ ] Loading data
 * [ ] Forms
 * [ ] API routes
@@ -360,4 +361,7 @@ export const count = createCount()
 
 - SvelteKit uses file-based routing
   - Routes are created under `src/routes` with the `+oage.svelte` naming convention
-  -
+- `+layout.svelte` naming convention can be used to share common ui among child/sibling routes
+- `Dynamic routes` are achieved via the `[paramVar]` directory naming convention
+
+### Loading data
