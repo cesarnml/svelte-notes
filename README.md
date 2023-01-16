@@ -12,6 +12,9 @@
       - [Bindings](#bindings)
       - [Lifecycle](#lifecycle)
       - [Stores](#stores)
+    - [Part 2: Introduction to SvelteKit](#part-2-introduction-to-sveltekit)
+      - [Concepts](#concepts)
+      - [Routing](#routing)
 
 ## Sections
 
@@ -28,7 +31,7 @@
 
 - Part 2: Introduction to SvelteKit
 
-* [ ] Concepts
+* [x] ~~_Concepts_~~ [2023-01-16]
 * [ ] Routing
 * [ ] Loading data
 * [ ] Forms
@@ -332,3 +335,29 @@ export const count = createCount()
 
 - `$count` has the value
 - Two-way binding (`bind:`) is possible with `writable` stores
+
+### Part 2: Introduction to SvelteKit
+
+#### Concepts
+
+- SvelteKit is an `app framework` (i.e. a meta-framework)
+- It comes with built-in solutions for:
+  - Routing
+  - Server-side rendering (SSR)
+  - Data fetching
+  - Service workers
+  - TypeScript integration
+  - Singe-page apps (SPAs)
+  - Library packaging
+  - Optimized production builds
+  - Deployment solutions, etc.
+- SvelteKit apps are server-rendered by default
+- _A SvelteKit app can be thought of as two distinct entities working in tandem: the server and the client_
+  - The Server's basic job is to turn a a request into a response
+  - Client refers to JavaScript that loads in the browser
+
+#### Routing
+
+- SvelteKit uses file-based routing
+  - Routes are created under `src/routes` with the `+oage.svelte` naming convention
+  -
