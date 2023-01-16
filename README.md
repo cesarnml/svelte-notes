@@ -34,7 +34,7 @@
 
 * [x] ~~_Concepts_~~ [2023-01-16]
 * [x] ~~_Routing_~~ [2023-01-16]
-* [ ] Loading data
+* [x] ~~_Loading data_~~ [2023-01-16]
 * [ ] Forms
 * [ ] API routes
 * [ ] Errors and redirects
@@ -365,3 +365,10 @@ export const count = createCount()
 - `Dynamic routes` are achieved via the `[paramVar]` directory naming convention
 
 ### Loading data
+
+- To fetch data (or execute any server-only code prior to loading an adjacent `+page.svelte`) - define a `+page.server.js` file
+  - The code in `+page.server.js` will only run on the server
+  - A special `load` function can be declared whose return value will be passed to the adjacent page route as a `data` prop
+    - `export let data`
+  - The `load` function associated with a dynamic page route will be passed a `params` parameter to determine the specific route param that was hit (i.e. `export function load( { params } ) { ... }`
+- To share `load` data among children routes use `layout.server.js` (watch out for name conflicts)
