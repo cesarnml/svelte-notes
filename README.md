@@ -15,7 +15,11 @@
     - [Part 2: Introduction to SvelteKit](#part-2-introduction-to-sveltekit)
       - [Concepts](#concepts)
       - [Routing](#routing)
-    - [Loading data](#loading-data)
+      - [Loading data](#loading-data)
+      - [Forms](#forms)
+      - [API Routes](#api-routes)
+      - [Errors and Redirects](#errors-and-redirects)
+      - [Page options](#page-options)
 
 ## Sections
 
@@ -364,7 +368,7 @@ export const count = createCount()
 - `+layout.svelte` naming convention can be used to share common ui among child/sibling routes
 - `Dynamic routes` are achieved via the `[paramVar]` directory naming convention
 
-### Loading data
+#### Loading data
 
 - To fetch data (or execute any server-only code prior to loading an adjacent `+page.svelte`) - define a `+page.server.js` file
   - The code in `+page.server.js` will only run on the server
@@ -372,3 +376,11 @@ export const count = createCount()
     - `export let data`
   - The `load` function associated with a dynamic page route will be passed a `params` parameter to determine the specific route param that was hit (i.e. `export function load( { params } ) { ... }`
 - To share `load` data among children routes use `layout.server.js` (watch out for name conflicts)
+
+#### Forms
+
+#### API Routes
+
+#### Errors and Redirects
+
+#### Page options
