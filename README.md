@@ -39,7 +39,7 @@
 * [x] ~~_Concepts_~~ [2023-01-16]
 * [x] ~~_Routing_~~ [2023-01-16]
 * [x] ~~_Loading data_~~ [2023-01-16]
-* [ ] Forms
+* [x] ~~_Forms_~~ [2023-01-17]
 * [ ] API routes
 * [ ] Errors and redirects
 * [ ] Page options
@@ -379,8 +379,91 @@ export const count = createCount()
 
 #### Forms
 
+- Client can send data to the server via the `form` element (using `request.formData()` on the server and exporting an `actions`)
+
+```jsx
+export const actions = {
+  default: async ({ cookies, request }) => {
+    const data = await request.formData()
+    db.createTodo(cookies.get('userid'), data.get('description'))
+  },
+}
+```
+
+- NOTE: _Default actions cannot coexist with named actions._
+- `form` element has an optional `action` attribute (e.g `action="?/create"`)
+- Hidden form input example
+
+```jsx
+<form method='POST' action='?/delete'>
+  <input type='hidden' name='id' value={todo.id} />
+  <button aria-label='Mark as complete'>✔</button>
+
+  {todo.description}
+</form>
+```
+
+- `fail` function can be used to return error feedback to user and display on page that sent the failed request
+  - Unhandled errors are automatically hidden by SvelteKit from the user
+- `form` props will contain the `fail` return content and is only ever populated after a form failure
+  - `export let form` to gain access to form prop in component
+- `	import { enhance } from '$app/forms';` and `<form use:enhance ... />` to `progressively enhance the native form element
+  - Progressive enhancement of the native form element enables:
+    - update of the `form` prop
+    - invalidate all data on successful response (e.g. re-run `load` function on server)
+    - navigate to new page on redirect response
+    - renders nearest error page on failure
+    - updates page instead of reload on submission (allowing for animations between states)
+- `use:enhance` also allows for `pending states` and `optimistic UI`
+
+- Enhanced creation
+
+```jsx
+<form
+	method="POST"
+	action="?/create"
+	use:enhance={() => {
+		creating = true;
+
+		return async ({ update }) => {
+			await update();
+			creating = false;
+		};
+	}}
+>
+```
+
+- Optimistic deletion
+
+```jsx
+	{#each data.todos.filter((todo) => !deleting.includes(todo.id)) as todo (todo.id)}
+		<li class="todo" in:fly={{ y: 20 }} out:slide>
+			<form
+				method="POST"
+				action="?/delete"
+				use:enhance={() => {
+					deleting = [...deleting, todo.id];
+					return async ({ update }) => {
+						await update();
+						deleting = deleting.filter((id) => id !== todo.id);
+					};
+				}}
+			>
+				<input type="hidden" name="id" value={todo.id} />
+				<button aria-label="Mark as complete">✔</button>
+
+				{todo.description}
+			</form>
+		</li>
+	{/each}
+```
+
 #### API Routes
 
 #### Errors and Redirects
 
 #### Page options
+
+```
+
+```
