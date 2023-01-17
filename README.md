@@ -458,6 +458,11 @@ export const actions = {
 	{/each}
 ```
 
+- `use:enhance` is very customizable
+  - you can cancel() submissions
+  - handle redirects
+  - control whether the form is reset
+
 #### API Routes
 
 #### Errors and Redirects
